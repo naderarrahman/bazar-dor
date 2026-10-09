@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "../components/Header/Navbar";
 import NavCategory from "../components/Header/NavCategory";
 import Marquee from "../components/Header/Marquee";
+import Footer from "@/components/Footer/Footer";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <NavCategory />
         <Marquee />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
