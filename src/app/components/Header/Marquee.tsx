@@ -53,9 +53,9 @@ export default async function Marquee() {
           <Link
             key={product.id}
             href={`/product/${product.slug}`}
-            className="inline-flex items-center gap-1.5 px-4 py-2 mx-3 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition whitespace-nowrap"
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 mx-2 sm:mx-3 text-xs sm:text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition whitespace-nowrap"
           >
-            <span className="text-base">{product.image}</span>
+            <span className="text-sm sm:text-base">{product.image}</span>
             <span className="font-medium">{product.nameBn}</span>
             <span className="text-gray-500">
               {toBengaliNumber(product.today)} টাকা/

@@ -1,6 +1,9 @@
+import Hero from "./components/HomeSection/Hero";
 
-export default function page() {
+export default function Page() {
   return (
-    <div>আজকের বাজারের দাম এক নজরে</div>
-  )
+    <main>
+      <Hero />
+    </main>
+  );
 }
