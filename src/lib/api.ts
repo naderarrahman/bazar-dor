@@ -3,7 +3,7 @@ import { Category, Product } from "@/types";
 export async function getCategories(): Promise<Category[]> {
   try {
     const res = await fetch(
-      "https://api.abcz.workers.dev/api/bazardor/categories",
+      "https://api.api-store.workers.dev/api/bazardor/categories",
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return [];
@@ -17,7 +17,7 @@ export async function getCategories(): Promise<Category[]> {
 export async function getProducts(): Promise<Product[]> {
   try {
     const res = await fetch(
-      "https://api.abcz.workers.dev/api/bazardor/products",
+      "https://api.api-store.workers.dev/api/bazardor/products",
       { next: { revalidate: 60 } }
     );
     if (!res.ok) return [];

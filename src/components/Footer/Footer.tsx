@@ -1,9 +1,9 @@
 import { FiMail } from "react-icons/fi";
 import { FaLinkedin, FaFacebookF } from "react-icons/fa";
 
-export default function Footer() {
-  const year = new Date().getFullYear();
+const date = new Date().getFullYear();
 
+export default function Footer() {
   return (
     <footer className="mt-12 sm:mt-16 bg-white border-t border-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
@@ -24,7 +24,7 @@ export default function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6">
           <p className="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
-            © {year} বাজার দর। সকল অধিকার সংরক্ষিত।
+            © {date} বাজার দর। সকল অধিকার সংরক্ষিত।
           </p>
 
           <div className="flex items-center gap-3">

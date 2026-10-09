@@ -1,8 +1,8 @@
 import Link from "next/link";
 import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
+import { getProducts } from "@/lib/api";
 import { toBengaliNumber } from "@/lib/utils";
-import { Product } from "@/types";
 
 function getUnitLabel(unit: string): string {
   const units: Record<string, string> = {
@@ -27,22 +27,7 @@ function getChangeIcon(dir: string): string {
 }
 
 export default async function Marquee() {
-  let products: Product[] = [];
-
-  try {
-    const res = await fetch(
-      "https://api.abcz.workers.dev/api/bazardor/products",
-      { next: { revalidate: 60 } }
-    );
-
-    if (!res.ok) {
-      console.error(`API Error: ${res.status}`);
-    } else {
-      products = await res.json();
-    }
-  } catch (error) {
-    console.error("Failed to fetch products:", error);
-  }
+  const products = await getProducts();
 
   if (products.length === 0) return null;
 
