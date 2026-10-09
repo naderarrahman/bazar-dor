@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Header/Navbar";
-import NavCategory from "./components/Header/NavCategory";
-import Marquee from "./components/Header/Marquee";
+import Navbar from "../components/Header/Navbar";
+import NavCategory from "../components/Header/NavCategory";
+import Marquee from "../components/Header/Marquee";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
