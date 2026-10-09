@@ -12,7 +12,16 @@ export default async function AllProducts() {
         className="py-8 sm:py-12 lg:py-16 scroll-mt-64"
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-gray-500">কোনো পণ্য পাওয়া যায়নি।</p>
+          <div className="text-center py-8">
+            <p className="text-4xl mb-3">📡</p>
+            <p className="text-base font-medium text-gray-700 mb-1">
+              ডেটা লোড হচ্ছে না
+            </p>
+            <p className="text-sm text-gray-500">
+              আমাদের সার্ভারে সাময়িক সমস্যা হয়েছে। অনুগ্রহ করে কিছুক্ষণ পরে
+              আবার চেষ্টা করুন।
+            </p>
+          </div>
         </div>
       </section>
     );

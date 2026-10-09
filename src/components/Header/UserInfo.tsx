@@ -18,7 +18,10 @@ export default function UserInfo() {
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -47,7 +50,22 @@ export default function UserInfo() {
   }
 
   if (error) {
-    return <div className="text-xs text-red-500">Error loading session</div>;
+    return (
+      <div className="flex items-center gap-2">
+        <Link
+          href="/sign-in"
+          className="px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
+        >
+          সাইন ইন
+        </Link>
+        <Link
+          href="/sign-up"
+          className="px-3 py-1.5 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
+        >
+          সাইন আপ
+        </Link>
+      </div>
+    );
   }
 
   if (!user) {
@@ -70,12 +88,10 @@ export default function UserInfo() {
   }
 
   const initial = user.name?.trim().charAt(0)?.toUpperCase() || "U";
-
   const isVerified = user.emailVerified === true;
 
   return (
     <div className="relative" ref={dropdownRef}>
-
       <button
         onClick={() => setOpen(!open)}
         className="cursor-pointer flex items-center gap-2 px-1 py-1 rounded-lg hover:bg-gray-50 transition"
@@ -91,7 +107,6 @@ export default function UserInfo() {
 
       {open && (
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl border border-gray-100 shadow-lg p-4 z-50">
-
           <div className="mb-3">
             <p className="text-sm font-semibold text-gray-900 truncate">
               {user.name}
@@ -117,10 +132,8 @@ export default function UserInfo() {
             )}
           </div>
 
-          {/* Divider */}
           <div className="border-t border-gray-100 my-2" />
 
-          {/* My Profile Link */}
           <Link
             href="/profile"
             onClick={() => setOpen(false)}
@@ -130,7 +143,6 @@ export default function UserInfo() {
             আমার প্রোফাইল
           </Link>
 
-          {/* Sign Out */}
           <button
             onClick={handleSignOut}
             className="cursor-pointer w-full flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-red-600 hover:bg-red-50 transition"
@@ -138,10 +150,8 @@ export default function UserInfo() {
             <FaSignOutAlt className="w-3.5 h-3.5" />
             সাইন আউট
           </button>
-
         </div>
       )}
-
     </div>
   );
 }
