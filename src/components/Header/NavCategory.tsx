@@ -23,11 +23,23 @@ export default async function NavCategory() {
     <nav className="border-t border-gray-100 bg-white">
       <div className="max-w-6xl mx-auto px-4">
         <ul className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-hide">
+          
+          {/* Home Link */}
+          <li>
+            <CategoryLink href="/" icon="🏠" label="হোম" />
+          </li>
+
+          {/* Category Links */}
           {categories.map((item) => (
             <li key={item.id}>
-              <CategoryLink category={item} />
+              <CategoryLink
+                href={`/category/${item.slug}`}
+                icon={item.icon}
+                label={item.nameBn}
+              />
             </li>
           ))}
+
         </ul>
       </div>
     </nav>

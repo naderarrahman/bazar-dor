@@ -4,8 +4,16 @@
   --font-sans: var(--font-hind-siliguri), sans-serif;
 }
 
+@layer utilities {
+  .bn-digits {
+    font-family: var(--font-noto-bengali), "Hind Siliguri", sans-serif;
+    font-feature-settings: "liga" 0, "calt" 0;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
 body {
-  background-color: #f8fafc; 
+  background-color: #f8fafc;
 }
 
 html {
