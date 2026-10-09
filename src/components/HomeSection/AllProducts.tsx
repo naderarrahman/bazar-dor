@@ -1,28 +1,16 @@
-import { Product } from "@/types";
 import { toBengaliNumber } from "@/lib/utils";
+import { getProducts } from "@/lib/api";
 import ProductCard from "../ProductCards/ProductCard";
 
 export default async function AllProducts() {
-  let products: Product[] = [];
-
-  try {
-    const res = await fetch(
-      "https://api.abcz.workers.dev/api/bazardor/products",
-      { next: { revalidate: 60 } }
-    );
-
-    if (!res.ok) {
-      console.error(`API Error: ${res.status}`);
-    } else {
-      products = await res.json();
-    }
-  } catch (error) {
-    console.error("Failed to fetch products:", error);
-  }
+  const products = await getProducts();
 
   if (products.length === 0) {
     return (
-      <section id="all-products" className="py-8 sm:py-12 lg:py-16 scroll-mt-64">
+      <section
+        id="all-products"
+        className="py-8 sm:py-12 lg:py-16 scroll-mt-64"
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-gray-500">কোনো পণ্য পাওয়া যায়নি।</p>
         </div>
