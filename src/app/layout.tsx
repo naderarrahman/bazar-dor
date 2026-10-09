@@ -5,6 +5,7 @@ import Navbar from "../components/Header/Navbar";
 import NavCategory from "../components/Header/NavCategory";
 import Marquee from "../components/Header/Marquee";
 import Footer from "@/components/Footer/Footer";
+import { Toaster } from "react-hot-toast";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Marquee />
         <main>{children}</main>
         <Footer />
+        <Toaster />
       </body>
     </html>
   );
