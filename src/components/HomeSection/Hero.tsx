@@ -1,16 +1,15 @@
-'use client'
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-
+import ClientDate from "@/components/ui/ClientDate";
 
 export default function Hero() {
-  const date = new Date().toLocaleDateString("bn-BD", {
-    dateStyle: "full",
-  });
-
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    document.getElementById("all-products")?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById("all-products")
+      ?.scrollIntoView({ behavior: "smooth" });
     window.history.pushState(null, "", "#all-products");
   };
 
@@ -21,8 +20,8 @@ export default function Hero() {
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 lg:gap-16">
 
             <div className="w-full md:w-1/2 text-center md:text-left">
-              <span className="inline-block px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs sm:text-sm font-medium">
-                {date}
+              <span className="inline-block px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs sm:text-sm font-medium min-h-[26px]">
+                <ClientDate variant="full" />
               </span>
 
               <h1 className="mt-3 sm:mt-4 text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 leading-tight">
