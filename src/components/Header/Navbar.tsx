@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import ClientDate from "@/components/ui/ClientDate";
 import UserInfo from "./UserInfo";
 
@@ -9,8 +10,10 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-
-          <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition"
+          >
             <div className="w-10 h-10 rounded-xl overflow-hidden">
               <Image
                 src="/logo-icon.png"
@@ -26,10 +29,9 @@ export default function Navbar() {
                 <ClientDate variant="full" />
               </span>
             </div>
-          </div>
+          </Link>
 
           <UserInfo />
-
         </div>
       </div>
     </header>

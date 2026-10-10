@@ -2,17 +2,48 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FaGithub } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function SignUpPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [passwordMismatch, setPasswordMismatch] = useState(false);
+
+  const hasShownToast = useRef(false);
+
+  useEffect(() => {
+    if (hasShownToast.current) return;
+
+    const errorParam = searchParams.get("error");
+
+    if (!errorParam) return;
+
+    hasShownToast.current = true;
+
+    if (errorParam === "access_denied") {
+      toast.error("সাইন আপ বাতিল করা হয়েছে");
+    } else if (errorParam === "OAuthAccountNotLinked") {
+      toast.error("এই ইমেইল ইতিমধ্যে অন্য মাধ্যমে নিবন্ধিত");
+    } else if (errorParam === "OAuthSignin") {
+      toast.error("সাইন আপ শুরু করতে সমস্যা হয়েছে");
+    } else if (errorParam === "OAuthCallback") {
+      toast.error("সাইন আপ করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    } else if (errorParam === "invalid_state") {
+      toast.error("নিরাপত্তা যাচাই ব্যর্থ হয়েছে");
+    } else if (errorParam) {
+      toast.error("সাইন আপ করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    }
+
+    if (typeof window !== "undefined") {
+      window.history.replaceState({}, "", "/sign-up");
+    }
+  }, [searchParams]);
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

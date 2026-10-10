@@ -2,16 +2,52 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FaGithub } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const hasShownToast = useRef(false);
+
+  useEffect(() => {
+    if (hasShownToast.current) return;
+
+    const errorParam = searchParams.get("error");
+    const reasonParam = searchParams.get("reason");
+
+    if (!errorParam && !reasonParam) return;
+
+    hasShownToast.current = true;
+
+    if (errorParam === "access_denied") {
+      toast.error("সাইন ইন বাতিল করা হয়েছে");
+    } else if (errorParam === "OAuthAccountNotLinked") {
+      toast.error("এই ইমেইল ইতিমধ্যে অন্য মাধ্যমে নিবন্ধিত");
+    } else if (errorParam === "OAuthSignin") {
+      toast.error("সাইন ইন শুরু করতে সমস্যা হয়েছে");
+    } else if (errorParam === "OAuthCallback") {
+      toast.error("সাইন ইন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    } else if (errorParam === "invalid_state") {
+      toast.error("নিরাপত্তা যাচাই ব্যর্থ হয়েছে");
+    } else if (errorParam) {
+      toast.error("সাইন ইন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    }
+
+    if (reasonParam === "protected") {
+      toast.error("এই পেজ দেখতে সাইন ইন করুন");
+    }
+
+    if (typeof window !== "undefined") {
+      window.history.replaceState({}, "", "/sign-in");
+    }
+  }, [searchParams]);
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,7 +95,6 @@ export default function SignInPage() {
   return (
     <div className="min-h-[75vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-
         <div className="text-center mb-6">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
             সাইন ইন
@@ -70,9 +105,7 @@ export default function SignInPage() {
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
-
           <form onSubmit={handleSignIn} className="space-y-4">
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 ইমেইল
@@ -99,7 +132,9 @@ export default function SignInPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "পাসওয়ার্ড লুকান" : "পাসওয়ার্ড দেখান"}
+                  aria-label={
+                    showPassword ? "পাসওয়ার্ড লুকান" : "পাসওয়ার্ড দেখান"
+                  }
                   className="cursor-pointer absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                 >
                   {showPassword ? (
@@ -118,7 +153,6 @@ export default function SignInPage() {
             >
               {loading ? "অপেক্ষা করুন..." : "সাইন ইন"}
             </button>
-
           </form>
 
           <div className="relative flex items-center justify-center my-5">
@@ -129,7 +163,6 @@ export default function SignInPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-
             <button
               type="button"
               onClick={handleGoogle}
@@ -157,7 +190,9 @@ export default function SignInPage() {
                   d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
                 />
               </svg>
-              <span className="whitespace-nowrap">Google দিয়ে চালিয়ে যান</span>
+              <span className="whitespace-nowrap">
+                Google দিয়ে চালিয়ে যান
+              </span>
             </button>
 
             <button
@@ -166,9 +201,10 @@ export default function SignInPage() {
               className="cursor-pointer flex items-center justify-center gap-2 border border-gray-200 rounded-lg py-2.5 px-3 text-xs sm:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 transition-colors"
             >
               <FaGithub className="w-4 h-4 shrink-0" />
-              <span className="whitespace-nowrap">GitHub দিয়ে চালিয়ে যান</span>
+              <span className="whitespace-nowrap">
+                GitHub দিয়ে চালিয়ে যান
+              </span>
             </button>
-
           </div>
 
           <p className="text-center text-xs sm:text-sm text-gray-600 mt-6">
@@ -180,7 +216,6 @@ export default function SignInPage() {
               সাইন আপ করুন
             </Link>
           </p>
-
         </div>
 
         <p className="text-center text-xs sm:text-sm text-gray-500 mt-5">
@@ -189,7 +224,6 @@ export default function SignInPage() {
             হোম পেজে ফিরে যান
           </Link>
         </p>
-
       </div>
     </div>
   );
