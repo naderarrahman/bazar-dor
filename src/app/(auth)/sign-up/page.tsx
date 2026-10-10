@@ -92,11 +92,11 @@ export default function SignUpPage() {
   };
 
   const handleGoogle = () => {
-    authClient.signIn.social({ provider: "google", callbackURL: "/" });
+    authClient.signIn.social({ provider: "google", callbackURL: "/?social=success", });
   };
 
   const handleGithub = () => {
-    authClient.signIn.social({ provider: "github", callbackURL: "/" });
+    authClient.signIn.social({ provider: "github", callbackURL: "/?social=success", });
   };
 
   return (
